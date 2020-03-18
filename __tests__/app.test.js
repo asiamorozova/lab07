@@ -80,6 +80,34 @@ it('updates a recipe by id', async() => {
         ],
         __v: 0
       });
+      it('deletes a recipe by id', async() => {
+        const recipe = await Recipe.create({
+          name: 'cookies',
+          directions: [
+            'preheat oven to 375',
+            'mix ingredients',
+            'put dough on cookie sheet',
+            'bake for 10 minutes'
+          ],
+          ingredients: [{ amount: 20, measurement: 'teaspoon', name: 'flour' }]
+        });
+        return request(app)
+          .delete(`/api/v1/recipes/${recipe._id}`)
+          .then(res => {
+            expect(res.body).toEqual({
+              _id: expect.any(String),
+              name: 'cookies',
+              directions: [
+                'preheat oven to 375',
+                'mix ingredients',
+                'put dough on cookie sheet',
+                'bake for 10 minutes'
+              ],
+              ingredients: [{ _id: expect.any(String), amount: 20, measurement: 'teaspoon', name: 'flour' }],
+              __v: 0
+            });
+          });
+      });
 
     });
 });
