@@ -94,7 +94,7 @@ describe('app routes', () => {
     });
 
     return request(app)
-      .path(`/api/v1/recipes/${recipe._id}`)
+      .patch(`/api/v1/recipes/${recipe._id}`)
       .send({ name: 'good cookies' })
       .then(res => {
         expect(res.body).toEqual({
@@ -103,7 +103,7 @@ describe('app routes', () => {
           directions: [
             'preheat oven to 375',
             'mix ingredients',
-            'put dough in cookie sheet',
+            'put dough on cookie sheet',
             'bake for 10 minutes'
           ],
           ingredients: [{
